@@ -2,7 +2,7 @@ const mongoose = require('mongoose')
 require('dotenv').config()
 
 function connect() {
-    mongoose.connect(process.env.MONGO_URL, {
+    mongoose.connect('mongodb+srv://tascom:4KmlUjIym7IhsGex@tscmdb.xexk9.mongodb.net/tsm', {
         useNewUrlParser: true,
         useUnifiedTopology: true,
     })
