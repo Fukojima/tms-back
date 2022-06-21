@@ -2,10 +2,17 @@ const {Router} = require('express')
 
 const PatientController = require('./controller/PatientController')
 const ProgramController = require('./controller/ProgramController')
+const AttendanceController = require('./controller/AttendanceController')
 const UsersController = require('./controller/UsersController')
 const AuthController = require('./controller/AuthController')
 const Auth = require('./middlewares/auth')
 const routes = Router()
+
+//Rotas de Atendimento
+routes.post('/details', AttendanceController.createDetails)
+routes.get('/details/:month', AttendanceController.showByMonth)
+routes.post('/attendance', AttendanceController.createAttendance)
+routes.get('/attendance', AttendanceController.showAttendance)
 
 //Rotas de Paciente
 routes.post('/patients', Auth.verifyJWT, PatientController.create)

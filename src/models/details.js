@@ -1,12 +1,13 @@
 const mongoose = require('mongoose')
 
 const DetailsSchema = new mongoose.Schema({
-    service: {
-        type:string,
+    month:{
+        type:String,
+        default:"3"
     },
-    qtd: {
-        type:number,
-    },
+    services:{
+        type:Object
+    }
 })
 
 module.exports = mongoose.model('details', DetailsSchema)
