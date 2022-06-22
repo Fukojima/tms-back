@@ -6,12 +6,12 @@ module.exports = {
         try {
             const body = req.body
             console.log(body)
-            if (!body){
-                return res.status(400).json({message:'Campo da requisição vazio' })
+            if (!body) {
+                return res.status(400).json({message: 'Campo da requisição vazio'})
             }
-             await Details.remove();
-             await Details.create(body)
-            return res.status(201).json({message:'Registro efetuado com sucesso!' })
+            await Details.remove()
+            await Details.create(body)
+            return res.status(201).json({message: 'Registro efetuado com sucesso!'})
         } catch (error) {
             return res.status(500).json({
                 error: {
@@ -25,12 +25,12 @@ module.exports = {
         try {
             const body = req.body
             console.log(body)
-            if (!body){
-                return res.status(400).json({message:'Campo da requisição vazio' })
+            if (!body) {
+                return res.status(400).json({message: 'Campo da requisição vazio'})
             }
-             await Attendance.remove();
-             await Attendance.create(body)
-            return res.status(201).json({message:'Registro efetuado com sucesso!' })
+            await Attendance.remove()
+            await Attendance.create(body)
+            return res.status(201).json({message: 'Registro efetuado com sucesso!'})
         } catch (error) {
             return res.status(500).json({
                 error: {
@@ -40,50 +40,45 @@ module.exports = {
             })
         }
     },
-    async showAttendance(req,res){
+    async showAttendance(req, res) {
         try {
             const body = req.body
             console.log(body)
-            if (!body){
-                return res.status(400).json({message:'Campo da requisição vazio' })
+            if (!body) {
+                return res.status(400).json({message: 'Campo da requisição vazio'})
             }
 
-            const attendance = await Attendance.find();
+            const attendance = await Attendance.find()
 
             return res.status(200).json(attendance)
         } catch (error) {
             return res.status(500).json({
-                    message: error.message,
-
+                message: error.message,
             })
         }
     },
-    async showByMonth(req,res){
+    async showByMonth(req, res) {
         const {month} = req.params
         try {
             const body = req.body
             console.log(body)
-            if (!body){
-                return res.status(400).json({message:'Campo da requisição vazio' })
+            if (!body) {
+                return res.status(400).json({message: 'Campo da requisição vazio'})
             }
 
-            const services = await Details.find({month:month})
-            if (services.length < 1){
+            const services = await Details.find({month: month})
+            if (services.length < 1) {
                 return res.status(404).json({
-
-                        message: 'Não há registros para esse mês',
-
+                    message: 'Não há registros para esse mês',
                 })
             }
             return res.status(200).json(services)
         } catch (error) {
             return res.status(500).json({
-                    message: error.message,
-
+                message: error.message,
             })
         }
     },
-    
 
     async update(req, res) {
         try {
