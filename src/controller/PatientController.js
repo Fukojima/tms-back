@@ -9,7 +9,7 @@ module.exports = {
 
             if (patientCpf) {
                 if (!cpfIsValid(patientCpf)) {
-                    return res.status(400).json({ message: 'Número de CPF inválido.' })
+                    return res.status(400).json({ error: 'Número de CPF inválido.' })
                 }
             }
 
@@ -39,13 +39,16 @@ module.exports = {
                 return res.status(404).json({ error: 'Paciente não encontrado.' })
             }
         } catch (error) {
-            return res.status(500).json({ error: 'Erro ao atualizar Paciente.' })
+            return res.status(500).json({
+                error: 'Erro ao atualizar Paciente.',
+                errorDescribe: error.message
+            })
         }
     },
 
     async delete(req, res) {
         try {
-            const { id } = req.params
+            const { id } = req.params.id
             const patient = await Patient.findByIdAndDelete(id)
 
             if (patient) {
@@ -55,17 +58,15 @@ module.exports = {
             }
         } catch (error) {
             return res.status(500).json({
-                error: {
-                    message: 'Erro ao deletar o Paciente.',
-                    error: error.message,
-                },
+                error: 'Erro ao deletar o Paciente.',
+                errorDescribe: error.message
             })
         }
     },
 
     async getById(req, res) {
         try {
-            const { id } = req.params
+            const { id } = req.params.id
             const patient = await Patient.findById(id)
             if (patient) {
                 return res.status(200).json(patient)
@@ -73,7 +74,10 @@ module.exports = {
                 return res.status(404).json({ error: 'Paciente não existe' })
             }
         } catch (error) {
-            return res.status(500).json({ error: 'Erro ao deletar o Paciente.' })
+            return res.status(500).json({
+                error: 'Erro ao deletar o Paciente.',
+                errorDescribe: error.message
+            })
         }
     },
 }

@@ -6,20 +6,15 @@ module.exports = {
         if (!token)
             return res.status(401).json({
                 auth: false,
-                error: {
-                    messege: 'Sem autenticação',
-                    error: 'Sem autenticação',
-                },
+                error: 'Sem autenticação'
             })
 
         jwt.verify(token, process.env.SECRET, function (err, decoded) {
             if (err)
                 return res.status(401).json({
                     auth: false,
-                    error: {
-                        messege: 'Falha na autenticação do token',
-                        error: err.message,
-                    },
+                    error: 'Falha na autenticação do token',
+                    errorDescribe: err.message,
                 })
 
             const idUser = decoded._id
