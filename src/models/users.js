@@ -39,16 +39,6 @@ const UsersSchema = new mongoose.Schema({
         default: true,
         comment: 'Campo de Status para saber se usuário está ativo.',
     },
-    created_at: {
-        type: Date,
-        default: Date.now,
-        comment: 'Data de criação do usuário.',
-    },
-    update_at: {
-        type: Date,
-        default: Date.now,
-        comment: 'Campo com data da atualização de cadastro do usuário.',
-    },
     disabled: {
         type: Boolean,
         default: false,
@@ -62,6 +52,8 @@ const UsersSchema = new mongoose.Schema({
         },
         comment: 'Campo de permissões de usuário.',
     },
-})
+}, { versionKey: false })
+
+UsersSchema.set('timestamps', true)
 
 module.exports = mongoose.model('users', UsersSchema)

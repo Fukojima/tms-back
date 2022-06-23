@@ -135,16 +135,6 @@ const PatientSchema = new mongoose.Schema({
         },
         comment: 'Estado Cívil.',
     },
-    created_at: {
-        type: Date,
-        default: Date.now,
-        comment: 'Data de criação do Cadastro.',
-    },
-    update_at: {
-        type: Date,
-        default: Date.now,
-        comment: 'Data da última atualização do Cadastro.',
-    },
     disabled: {
         type: Boolean,
         default: false,
@@ -155,6 +145,8 @@ const PatientSchema = new mongoose.Schema({
             id_program: mongoose.Schema.Types.ObjectId,
         },
     ],
-})
+}, { versionKey: false })
+
+PatientSchema.set('timestamps', true)
 
 module.exports = mongoose.model('patient', PatientSchema)

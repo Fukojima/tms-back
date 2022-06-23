@@ -15,20 +15,10 @@ module.exports = {
                 }
                 return res.status(200).json(result)
             } else {
-                return res.status(500).json({
-                    error: {
-                        message: 'Usuário ou senha errada.',
-                        error: 'Não foi possível validar o usuário.',
-                    },
-                })
+                return res.status(500).json({error: 'Usuário ou senha errada.'})
             }
         } catch (error) {
-            return res.status(500).json({
-                error: {
-                    message: 'Erro ao fazer login.',
-                    error: error.message,
-                },
-            })
+            return res.status(500).json({error: 'Erro ao fazer login.'})
         }
     },
 }

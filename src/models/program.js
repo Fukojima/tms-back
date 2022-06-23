@@ -24,16 +24,6 @@ const ProgramSchema = new mongoose.Schema({
         required: [true, 'O campo da Faixa Etária Inicial deve ser preenchido.'],
         comment: 'Campo de Faixa Etária Inicial do programa.',
     },
-    created_at: {
-        type: Date,
-        default: Date.now,
-        comment: 'Data de criação do Programa.',
-    },
-    update_at: {
-        type: Date,
-        default: Date.now,
-        comment: 'Data da última atualização do Programa.',
-    },
     date_inative: {
         type: Date,
         comment: 'Campo de data da inativação do cadastro.',
@@ -43,6 +33,8 @@ const ProgramSchema = new mongoose.Schema({
         default: false,
         comment: 'Campo para confirmar se Programa está desativado.',
     },
-})
+}, { versionKey: false })
+
+ProgramSchema.set('timestamps', true)
 
 module.exports = mongoose.model('program', ProgramSchema)

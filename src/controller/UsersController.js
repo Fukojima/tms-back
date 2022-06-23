@@ -11,36 +11,22 @@ module.exports = {
 
             if (emailExists) {
                 if (!validator.validate(body.email)) {
-                    return res.status(401).json({
-                        error: {
-                            message: 'E-mail inválido.',
-                        },
-                    })
+                    return res.status(401).json({error: 'E-mail inválido.'})
                 }
             } else {
-                return res.status(400).json({
-                    error: {
-                        message: 'E-mail é obrigado para realizar login.',
-                    },
-                })
+                return res.status(400).json({error: 'E-mail é obrigado para realizar login.'})
             }
 
             if (usersCpf) {
                 if (!cpfIsValid(usersCpf)) {
-                    let response = {message: 'Número de CPF inválido.'}
-                    return res.status(400).send(response)
+                    return res.status(400).json({error: 'Número de CPF inválido.'})
                 }
             }
 
             const users = await Users.create(body)
             return res.status(201).json(users)
         } catch (error) {
-            return res.status(500).json({
-                error: {
-                    message: 'Erro ao criar usuário.',
-                    error: error.message,
-                },
-            })
+            return res.status(500).json({error: 'Erro ao criar usuário.'})
         }
     },
 
@@ -51,29 +37,17 @@ module.exports = {
             const users = await Users.findByIdAndUpdate(id, body, {new: true})
 
             if (!users.body) {
-                return res.status(400).json({
-                    error: {
-                        message: 'Necessário passar os campos com as informações a serem atualizadas.',
-                    },
-                })
+                return res
+                    .status(400)
+                    .json({error: 'Necessário passar os campos com as informações a serem atualizadas.'})
             }
             if (users.body) {
                 return res.status(200).json(users)
             } else {
-                return res.status(404).json({
-                    error: {
-                        message: 'Usuário não encontrado.',
-                        error: `Não foi possivel encontrar o usuário com o id ${id}.`,
-                    },
-                })
+                return res.status(404).json({error: 'Usuário não encontrado.'})
             }
         } catch (error) {
-            return res.status(500).json({
-                error: {
-                    message: 'Erro ao atualizar usuário.',
-                    error: error.message,
-                },
-            })
+            return res.status(500).json({error: 'Erro ao atualizar usuário.'})
         }
     },
 
@@ -86,45 +60,24 @@ module.exports = {
                     message: `Usuário deletado com sucesso ${users.email}`,
                 })
             } else {
-                return res.status(404).json({
-                    error: {
-                        message: 'Usuário não encontrado.',
-                        error: `Não foi possivel encontrar o usuário com o id ${id}.`,
-                    },
-                })
+                return res.status(404).json({error: 'Usuário não encontrado.'})
             }
         } catch (error) {
-            return res.status(500).json({
-                error: {
-                    message: 'Erro ao deletar o usuário.',
-                    error: error.message,
-                },
-            })
+            return res.status(500).json({error: 'Erro ao deletar o usuário.'})
         }
     },
 
     async getById(req, res) {
         try {
             const {id} = req.params
-            const users = await Users.findById((id), 'name company active grant')
+            const users = await Users.findById(id, 'name company active grant')
             if (!users) {
-                return res.status(404).json({
-                    error: {
-                        messege: 'Usuário não encontrado ou não existe.',
-                        error: `Não foi possivel encontrar o usuário com o id ${id}`,
-                    },
-                })
+                return res.status(404).json({error: 'Usuário não encontrado ou não existe.'})
             }
 
             return res.status(200).json(users)
-            
         } catch (error) {
-            return res.status(500).json({
-                error: {
-                    message: 'Erro ao buscar o usuário.',
-                    error: error.message,
-                },
-            })
+            return res.status(500).json({error: 'Erro ao buscar o usuário.'})
         }
     },
 }

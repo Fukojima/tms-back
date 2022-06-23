@@ -7,12 +7,7 @@ module.exports = {
             const program = await Program.create(body)
             return res.status(201).json(program)
         } catch (error) {
-            return res.status(500).json({
-                error: {
-                    message: 'Erro ao criar Programa.',
-                    error: error.message,
-                },
-            })
+            return res.status(500).json({error: 'Erro ao criar Programa.'})
         }
     },
 
@@ -23,30 +18,18 @@ module.exports = {
             const program = await Program.findByIdAndUpdate(id, body, {new: true})
 
             if (!program.body) {
-                return res.status(400).json({
-                    error: {
-                        message: 'Necessário passar os campos com as informações a serem atualizadas.',
-                    },
-                })
+                return res
+                    .status(400)
+                    .json({error: 'Necessário passar os campos com as informações a serem atualizadas.'})
             }
 
             if (program.body) {
                 return res.status(200).json(program)
             } else {
-                return res.status(404).json({
-                    error: {
-                        message: 'Programa não encontrado.',
-                        error: `Não foi possivel encontrar o Programa com o id ${id}.`,
-                    },
-                })
+                return res.status(404).json({error: `Não foi possivel encontrar o Programa com o id ${id}.`})
             }
         } catch (error) {
-            return res.status(500).json({
-                error: {
-                    message: 'Erro ao atualizar Programa.',
-                    error: error.message,
-                },
-            })
+            return res.status(500).json({error: 'Erro ao atualizar Programa.'})
         }
     },
 
@@ -57,20 +40,10 @@ module.exports = {
             if (program) {
                 return res.status(204).json({})
             } else {
-                return res.status(404).json({
-                    error: {
-                        message: 'Programa não encontrado.',
-                        error: `Não foi possivel encontrar o Programa com o id ${id}.`,
-                    },
-                })
+                return res.status(404).json({error: 'Programa não encontrado.'})
             }
         } catch (error) {
-            return res.status(500).json({
-                error: {
-                    message: 'Erro ao deletar o Programa.',
-                    error: error.message,
-                },
-            })
+            return res.status(500).json({error: 'Erro ao deletar o Programa.'})
         }
     },
 
@@ -81,20 +54,10 @@ module.exports = {
             if (program) {
                 return res.status(200).json(program)
             } else {
-                return res.status(404).json({
-                    error: {
-                        messege: 'Programa não existe',
-                        error: `Não foi possivel encontrar o Programa com o id ${id}`,
-                    },
-                })
+                return res.status(404).json({error: 'Programa não existe'})
             }
         } catch (error) {
-            return res.status(500).json({
-                error: {
-                    message: 'Erro ao deletar o Programa.',
-                    error: error.message,
-                },
-            })
+            return res.status(500).json({error: 'Erro ao deletar o Programa.'})
         }
     },
 }

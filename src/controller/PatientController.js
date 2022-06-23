@@ -1,5 +1,5 @@
 const Patient = require('../models/patient')
-const {cpfIsValid} = require('../utils/commons')
+const { cpfIsValid } = require('../utils/commons')
 
 module.exports = {
     async create(req, res) {
@@ -9,70 +9,49 @@ module.exports = {
 
             if (patientCpf) {
                 if (!cpfIsValid(patientCpf)) {
-                    let response = {message: 'Número de CPF inválido.'}
-                    return res.status(400).send(response)
+                    return res.status(400).json({ message: 'Número de CPF inválido.' })
                 }
             }
 
             const patient = await Patient.create(body)
             return res.status(201).json(patient)
         } catch (error) {
-            return res.status(500).json({
-                error: {
-                    message: 'Erro ao criar Paciente.',
-                    error: error.message,
-                },
-            })
+            console.log(error)
+            return res.status(500).json({ error: 'Erro ao criar Paciente.' })
         }
     },
 
     async update(req, res) {
         try {
-            const {id} = req.body._id
+            const { id } = req.body._id
             const body = req.body
-            const patient = await Patient.findByIdAndUpdate(id, body, {new: true})
+            const patient = await Patient.findByIdAndUpdate(id, body, { new: true })
 
             if (!patient.body) {
-                return res.status(400).json({
-                    error: {
-                        message: 'Necessário passar os campos com as informações a serem atualizadas.',
-                    },
-                })
+                return res
+                    .status(400)
+                    .json({ error: 'Necessário passar os campos com as informações a serem atualizadas.' })
             }
 
             if (patient.body) {
                 return res.status(200).json(patient)
             } else {
-                return res.status(404).json({
-                    error: {
-                        message: 'Paciente não encontrado.',
-                        error: `Não foi possivel encontrar o Paciente com o id ${id}.`,
-                    },
-                })
+                return res.status(404).json({ error: 'Paciente não encontrado.' })
             }
         } catch (error) {
-            return res.status(500).json({
-                error: {
-                    message: 'Erro ao atualizar Paciente.',
-                    error: error.message,
-                },
-            })
+            return res.status(500).json({ error: 'Erro ao atualizar Paciente.' })
         }
     },
 
     async delete(req, res) {
         try {
-            const {id} = req.params
+            const { id } = req.params
             const patient = await Patient.findByIdAndDelete(id)
+
             if (patient) {
                 return res.status(204).json({})
             } else {
-                return res.status(404).json({
-                    error: {
-                        message: 'Paciente não encontrado.',
-                        error: `Não foi possivel encontrar o Paciente com o id ${id}.`,
-                    },
-                })
+                return res.status(404).json({ error: 'Paciente não encontrado.' })
             }
         } catch (error) {
             return res.status(500).json({
@@ -86,25 +65,15 @@ module.exports = {
 
     async getById(req, res) {
         try {
-            const {id} = req.params
+            const { id } = req.params
             const patient = await Patient.findById(id)
             if (patient) {
                 return res.status(200).json(patient)
             } else {
-                return res.status(404).json({
-                    error: {
-                        messege: 'Paciente não existe',
-                        error: `Não foi possivel encontrar o Paciente com o id ${id}`,
-                    },
-                })
+                return res.status(404).json({ error: 'Paciente não existe' })
             }
         } catch (error) {
-            return res.status(500).json({
-                error: {
-                    message: 'Erro ao deletar o Paciente.',
-                    error: error.message,
-                },
-            })
+            return res.status(500).json({ error: 'Erro ao deletar o Paciente.' })
         }
     },
 }
