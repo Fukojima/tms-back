@@ -24,6 +24,7 @@
     "express-validator": "^6.14.0",
     "jsonwebtoken": "^8.5.1",
     "mongo-sanitize": "^1.1.0",
-    "mongoose": "^6.2.7"
+    "mongoose": "^6.2.7",
+    "node-worker-threads-pool": "^1.5.1"
   }
 }
