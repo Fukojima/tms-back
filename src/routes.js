@@ -12,8 +12,8 @@ const routes = Router()
 //Rotas de Atendimento
 routes.post('/details', AttendanceController.createDetails)
 routes.get('/details/:month', AttendanceController.showByMonth)
-routes.post('/attendance', AttendanceController.createAttendance)
-routes.get('/attendance', AttendanceController.showAttendance)
+routes.post('/attendances', AttendanceController.createAttendance)
+routes.get('/attendances', AttendanceController.showAttendance)
 
 //Rotas de Paciente
 routes.post('/patients', PatientController.create)
