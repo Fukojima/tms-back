@@ -9,7 +9,8 @@ const AdmeasurementSchema = new mongoose.Schema({
 
     },
     describe: String,
-    value: String
+    value: String,
+    date: Date
 }, { versionKey: false })
 
 AdmeasurementSchema.set('timestamps', true)
