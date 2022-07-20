@@ -5,6 +5,7 @@ const ProgramController = require('./controller/ProgramController')
 const AttendanceController = require('./controller/AttendanceController')
 const UsersController = require('./controller/UsersController')
 const AuthController = require('./controller/AuthController')
+const HistoryController = require('./controller/HistoryController')
 const Auth = require('./middlewares/auth')
 const AdmeasurementController = require('./controller/AdmeasurementController')
 const routes = Router()
@@ -33,6 +34,8 @@ routes.get('/users/:id', UsersController.getById)
 routes.put('/users/:id', UsersController.update)
 routes.delete('/users/:id', UsersController.delete)
 
+routes.post('/history', HistoryController.create)
+routes.get('/history', HistoryController.show)
 //Rotas de Autenticação
 routes.post('/login', AuthController.login)
 

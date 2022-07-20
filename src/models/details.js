@@ -1,12 +1,11 @@
 const mongoose = require('mongoose')
 
 const DetailsSchema = new mongoose.Schema({
-    month: {
+    service: {
         type: String,
-        default: '3',
     },
-    services: {
-        type: Object,
+    qtd: {
+        type:Number,
     },
 }, { versionKey: false })
 
