@@ -9,7 +9,6 @@ module.exports = {
             if (!body) {
                 return res.status(400).json({message: 'Campo da requisição vazio'})
             }
-            await Details.remove()
             await Details.create(body)
             return res.status(201).json({message: 'Registro efetuado com sucesso!'})
         } catch (error) {
@@ -28,7 +27,7 @@ module.exports = {
             if (!body) {
                 return res.status(400).json({message: 'Campo da requisição vazio'})
             }
-            await Attendance.remove()
+
             await Attendance.create(body)
             return res.status(201).json({message: 'Registro efetuado com sucesso!'})
         } catch (error) {
