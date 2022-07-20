@@ -4,6 +4,7 @@ const PatientController = require('./controller/PatientController')
 const ProgramController = require('./controller/ProgramController')
 const UsersController = require('./controller/UsersController')
 const AuthController = require('./controller/AuthController')
+const HistoryController = require('./controller/HistoryController')
 const Auth = require('./middlewares/auth')
 const routes = Router()
 
@@ -25,6 +26,8 @@ routes.get('/users/:id', Auth.verifyJWT, UsersController.getById)
 routes.put('/users/:id', Auth.verifyJWT, UsersController.update)
 routes.delete('/users/:id', Auth.verifyJWT, UsersController.delete)
 
+routes.post('/history', HistoryController.create)
+routes.get('/history', HistoryController.show)
 //Rotas de Autenticação
 routes.post('/login', AuthController.login)
 
